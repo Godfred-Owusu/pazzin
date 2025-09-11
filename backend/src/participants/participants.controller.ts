@@ -5,18 +5,24 @@ import {
   Patch,
   Param,
   Get,
+  Sse,
+  MessageEvent,
   NotFoundException,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { ParticipantsService } from './participants.service';
 import { CreateParticipantDto } from './dto/create-participant.dto';
 import { UpdateParticipantDto } from './dto/update-participant.dto';
-import { Participant } from './schema//participant.schema';
+import { Participant } from './schema/participant.schema';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 
 @ApiTags('Participants')
 @Controller('participants')
 export class ParticipantsController {
-  constructor(private readonly participantsService: ParticipantsService) {}
+  constructor(
+    private readonly participantsService: ParticipantsService,
+    private readonly eventEmitter: EventEmitter2,
+  ) {}
 
   //   register participant
   @Post('register')
@@ -89,4 +95,10 @@ export class ParticipantsController {
   async findAll(): Promise<Participant[]> {
     return this.participantsService.findAll();
   }
+
+  // SSE endpoint to stream events
+  // @Sse('sse')
+  // sse(): Observable<any> {
+  //   return this.participantsService.getEvents();
+  // }
 }

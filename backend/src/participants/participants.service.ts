@@ -13,6 +13,7 @@ import { v4 as uuidv4 } from 'uuid';
 import * as QRCode from 'qrcode';
 import { EmailService } from 'src/email/email.service';
 import { ProgramsService } from 'src/programs/programs.service';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 
 @Injectable()
 export class ParticipantsService {
@@ -21,6 +22,7 @@ export class ParticipantsService {
     private readonly participantModel: Model<ParticipantDocument>,
     private readonly emailService: EmailService,
     private readonly programService: ProgramsService,
+    private readonly eventEmitter: EventEmitter2,
   ) {}
 
   async register(createDto: CreateParticipantDto): Promise<Participant> {
@@ -62,7 +64,9 @@ export class ParticipantsService {
         name,
         program.name,
       );
-      return participant.save();
+      const savedParticipant = await participant.save();
+      this.eventEmitter.emit('participant.registered', savedParticipant);
+      return savedParticipant;
     } catch (error) {
       throw new BadRequestException(error.message);
     }
@@ -85,6 +89,8 @@ export class ParticipantsService {
       participant.claimedAt = new Date();
       await participant.save();
 
+      // emit the event after participant claimed the reward
+      this.eventEmitter.emit('participant.claimed', participant);
       return { status: 'success', message: 'Participant claimed successfully' };
     } catch (error) {
       throw new InternalServerErrorException(error.message);

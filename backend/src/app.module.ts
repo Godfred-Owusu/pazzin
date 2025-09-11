@@ -6,6 +6,9 @@ import { ParticipantsModule } from './participants/participants.module';
 
 import { MongooseModule } from '@nestjs/mongoose';
 import { EmailModule } from './email/email.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
+import { ParticipantsController } from './participants/participants.controller';
+import { DashboardController } from './participants/dashbord.controller';
 
 @Module({
   imports: [
@@ -13,8 +16,9 @@ import { EmailModule } from './email/email.module';
     ProgramsModule,
     ParticipantsModule,
     EmailModule,
+    EventEmitterModule.forRoot(),
   ],
-  controllers: [AppController],
+  controllers: [AppController, ParticipantsController, DashboardController],
   providers: [AppService],
 })
 export class AppModule {}
