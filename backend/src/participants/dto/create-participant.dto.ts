@@ -19,7 +19,7 @@ export class CreateParticipantDto {
   email: string;
 
   @ApiProperty({ example: '+233591130145' })
-  @IsPhoneNumber()
+  @IsPhoneNumber('FR', { message: 'Phone number is not valid' })
   phone: string;
 
   @ApiProperty({

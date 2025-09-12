@@ -50,9 +50,12 @@ export const Dashboard: React.FC = () => {
       <div className="max-w-7xl mx-auto space-y-8">
         {/* Header */}
         <div className="space-y-2">
-          <h1 className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-            Pazzin Dashboard
-          </h1>
+          <div className="flex items-center space-x-3">
+            <img src="./app_logo.png" alt="logo" width={50} />
+            <h1 className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+              Pazzin Dashboard
+            </h1>
+          </div>
           <p className="text-muted-foreground">
             Monitor event participants and track real-time registrations
           </p>
