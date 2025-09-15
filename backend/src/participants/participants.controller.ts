@@ -9,7 +9,7 @@ import {
   MessageEvent,
   NotFoundException,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiParam } from '@nestjs/swagger';
 import { ParticipantsService } from './participants.service';
 import { CreateParticipantDto } from './dto/create-participant.dto';
 import { UpdateParticipantDto } from './dto/update-participant.dto';
@@ -41,29 +41,37 @@ export class ParticipantsController {
   //   verify QR code
   @Post('verify/:qrCodeToken/:programId')
   @ApiOperation({ summary: 'Verify QR code and claim participant' })
+  @ApiParam({
+    name: 'qrCodeToken',
+    type: String,
+    description: 'The unique token from the scanned QR code',
+  })
+  @ApiParam({
+    name: 'programId',
+    type: String,
+    description: 'The ID of the program the QR code belongs to',
+  })
   @ApiResponse({
     status: 200,
     description: 'Participant claimed successfully',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Participant not found',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Participant already claimed',
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Internal server error',
   })
   async verifyQRCode(
     @Param('qrCodeToken') qrCodeToken: string,
     @Param('programId') programId: string,
   ) {
     return this.participantsService.verifyQRCode(qrCodeToken, programId);
-  }
-
-  @Patch(':id')
-  @ApiOperation({ summary: 'Update participant details' })
-  @ApiResponse({
-    status: 200,
-    description: 'Updated participant',
-    type: Participant,
-  })
-  async update(
-    @Param('id') id: string,
-    @Body() updateDto: UpdateParticipantDto,
-  ): Promise<Participant> {
-    return this.participantsService.update(id, updateDto);
   }
 
   // --------------------------

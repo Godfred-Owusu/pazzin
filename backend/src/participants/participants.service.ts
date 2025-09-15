@@ -74,16 +74,27 @@ export class ParticipantsService {
 
   //   verify QRcode
   async verifyQRCode(qrCodeToken: string, programId: string) {
+    console.log('[ParticipantsService] verifyQRCode called with:', {
+      qrCodeToken,
+      programId,
+    });
     try {
+      console.log('[ParticipantsService] Searching for participant...');
+      console.log({ qrCodeToken, programId });
       const participant = await this.participantModel.findOne({
         qrCodeToken,
-        programId: new Types.ObjectId(programId),
+        programId,
       });
+
+      console.log({ participant });
+      console.log('[ParticipantsService] Participant found:', participant);
       if (!participant) {
         throw new NotFoundException('Participant not found');
       }
       if (participant.hasClaimed) {
-        throw new BadRequestException('Participant already claimed');
+        throw new BadRequestException(
+          `${participant.name} has already claimed`,
+        );
       }
       participant.hasClaimed = true;
       participant.claimedAt = new Date();
@@ -91,7 +102,13 @@ export class ParticipantsService {
 
       // emit the event after participant claimed the reward
       this.eventEmitter.emit('participant.claimed', participant);
-      return { status: 'success', message: 'Participant claimed successfully' };
+      // return { status: 'success', message: 'Participant claimed successfully' };
+      return {
+        email: participant.email,
+        name: participant.name,
+        message: 'Participant claimed successfully',
+        claimed: participant.hasClaimed,
+      };
     } catch (error) {
       throw new InternalServerErrorException(error.message);
     }

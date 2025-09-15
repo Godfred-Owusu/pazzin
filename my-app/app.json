@@ -1,41 +1,37 @@
 {
   "expo": {
-    "name": "pazzin",
-    "slug": "pazzin",
+    "name": "my-app",
+    "slug": "my-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "pazzin",
+    "icon": "./assets/images/app_logo.png",
+    "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.godfred7.pazzin",
-      "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
-      }
+      "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/images/android-icon-foreground.png",
-        "backgroundImage": "./assets/images/android-icon-background.png",
-        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+        "foregroundImage": "./assets/images/app_logo.png",
+        "backgroundImage": "./assets/images/app_logo.png",
+        "monochromeImage": "./assets/images/app_logo.png"
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "com.godfred7.pazzin"
+      "package": "com.godfred7.myapp"
     },
     "web": {
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/app_logo.png"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/app_logo.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff",
@@ -52,9 +48,8 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "5c2d9876-093a-445f-8ed2-01ab876e6890"
+        "projectId": "4b9f4667-9e87-4d7c-b7e3-c5c47b15c38d"
       }
-    },
-    "owner": "godfred7"
+    }
   }
 }
