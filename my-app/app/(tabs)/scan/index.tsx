@@ -38,7 +38,7 @@ export default function Home() {
 
   const verifyScan = async (data: string) => {
     try {
-      const url = `http://192.168.1.67:3000/participants/verify/${data}/${selectedProgramId}`;
+      const url = `${process.env.EXPO_PUBLIC_API_URL}/participants/verify/${data}/${selectedProgramId}`;
       //
       console.log("[verifyScan] POST URL:", url);
       console.log("[verifyScan] POST data:", data);

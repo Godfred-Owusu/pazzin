@@ -4,7 +4,8 @@ import { ThemedView } from "@/components/themed-view";
 
 import React from "react";
 import { Modal, View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
+// import { MaterialIcons } from "@expo/vector-icons";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 interface ScanErrorModalProps {
   visible: boolean;
@@ -27,6 +28,7 @@ const ScanErrorModal: React.FC<ScanErrorModalProps> = ({
       <ThemedView style={styles.modalBackground}>
         <ThemedView style={styles.modalContainer}>
           <MaterialIcons name="error" size={60} color="red" />
+          {/* <MdError size={60} color="red" /> */}
           <ThemedText style={styles.modalTitle}>Scan Failed</ThemedText>
           <ThemedText style={styles.modalText}>{message}</ThemedText>
           <TouchableOpacity style={styles.closeButton} onPress={onClose}>

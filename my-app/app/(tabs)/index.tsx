@@ -119,6 +119,7 @@ import { ThemedView } from "@/components/themed-view";
 import axios from "axios";
 import { Picker } from "@react-native-picker/picker";
 import { useProgram } from "../hooks/ProgramContext";
+// import { EXPO_PUBLIC_API_URL } from "@env";
 
 interface Program {
   _id: string;
@@ -138,7 +139,7 @@ export default function HomeScreen() {
   const fetchData = async () => {
     try {
       const response = await axios.get<Program[]>(
-        "http://192.168.1.67:3000/programs"
+        `${process.env.EXPO_PUBLIC_API_URL}/programs`
       );
       setData(response.data);
       // Set default selected ID to the first program if none is selected
