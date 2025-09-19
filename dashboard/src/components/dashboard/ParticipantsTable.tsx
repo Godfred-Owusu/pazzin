@@ -303,12 +303,19 @@ export const ParticipantsTable: React.FC<ParticipantsTableProps> = ({
     return name.includes(term) || email.includes(term) || matchesPhone;
   });
 
+  // Sort by most recent first
+  const sortedParticipants = [...filteredParticipants].sort((a, b) => {
+    return (
+      new Date(b.registeredAt).getTime() - new Date(a.registeredAt).getTime()
+    );
+  });
+
   // Calculate pagination
   const totalItems = filteredParticipants.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const currentParticipants = filteredParticipants.slice(startIndex, endIndex);
+  const currentParticipants = sortedParticipants.slice(startIndex, endIndex);
 
   // Reset to first page when search changes
   React.useEffect(() => {
