@@ -9,10 +9,20 @@ import { EmailModule } from './email/email.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { ParticipantsController } from './participants/participants.controller';
 import { DashboardController } from './participants/dashbord.controller';
-
+import { ConfigModule, ConfigService } from '@nestjs/config';
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost:27017/pazzin'),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    // MongooseModule.forRoot('mongodb://localhost:27017/pazzin'),
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule], // Import the ConfigModule
+      useFactory: async (configService: ConfigService) => ({
+        uri: configService.get<string>('MONGODB_URI'),
+      }),
+      inject: [ConfigService], // Inject the ConfigService
+    }),
     ProgramsModule,
     ParticipantsModule,
     EmailModule,

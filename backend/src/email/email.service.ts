@@ -1,20 +1,24 @@
 import { Injectable, Logger } from '@nestjs/common';
 import * as nodemailer from 'nodemailer';
 import { qrCodeEmailTemplate } from './qr-code-email.template';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class EmailService {
   private transporter;
+
   private logger = new Logger(EmailService.name);
 
-  constructor() {
+  constructor(private configService: ConfigService) {
     this.transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com', // replace with your SMTP host
       port: 465, // or 465 for secure
       secure: true, // true if port 465
       auth: {
-        user: 'godfredmirekuowusu@gmail.com', // SMTP username
-        pass: 'doyp zkra jraz lftz', // SMTP password
+        // user: 'godfredmirekuowusu@gmail.com', // SMTP username
+        // pass: 'doyp zkra jraz lftz', // SMTP password
+        user: this.configService.get<string>('SMTP_USER'),
+        pass: this.configService.get<string>('SMTP_PASSWORD'),
       },
     });
   }
