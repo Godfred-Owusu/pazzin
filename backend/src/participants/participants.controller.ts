@@ -5,8 +5,6 @@ import {
   Patch,
   Param,
   Get,
-  Sse,
-  MessageEvent,
   NotFoundException,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiParam } from '@nestjs/swagger';
@@ -24,7 +22,6 @@ export class ParticipantsController {
     private readonly eventEmitter: EventEmitter2,
   ) {}
 
-  //   register participant
   @Post('register')
   @ApiOperation({ summary: 'Register a new participant and generate QR code' })
   @ApiResponse({
@@ -38,18 +35,12 @@ export class ParticipantsController {
     return this.participantsService.register(createDto);
   }
 
-  //   verify QR code
-  @Post('verify/:qrCodeToken/:programId')
+  @Post('verify/:qrCodeToken')
   @ApiOperation({ summary: 'Verify QR code and claim participant' })
   @ApiParam({
     name: 'qrCodeToken',
     type: String,
     description: 'The unique token from the scanned QR code',
-  })
-  @ApiParam({
-    name: 'programId',
-    type: String,
-    description: 'The ID of the program the QR code belongs to',
   })
   @ApiResponse({
     status: 200,
@@ -67,16 +58,10 @@ export class ParticipantsController {
     status: 500,
     description: 'Internal server error',
   })
-  async verifyQRCode(
-    @Param('qrCodeToken') qrCodeToken: string,
-    @Param('programId') programId: string,
-  ) {
-    return this.participantsService.verifyQRCode(qrCodeToken, programId);
+  async verifyQRCode(@Param('qrCodeToken') qrCodeToken: string) {
+    return this.participantsService.verifyQRCode(qrCodeToken);
   }
 
-  // --------------------------
-  // Get participant by ID
-  // --------------------------
   @Get(':id')
   @ApiOperation({ summary: 'Get participant by ID' })
   @ApiResponse({
@@ -90,9 +75,6 @@ export class ParticipantsController {
     return participant;
   }
 
-  // --------------------------
-  // Get all participants
-  // --------------------------
   @Get()
   @ApiOperation({ summary: 'Get all participants' })
   @ApiResponse({
@@ -103,10 +85,4 @@ export class ParticipantsController {
   async findAll(): Promise<Participant[]> {
     return this.participantsService.findAll();
   }
-
-  // SSE endpoint to stream events
-  // @Sse('sse')
-  // sse(): Observable<any> {
-  //   return this.participantsService.getEvents();
-  // }
 }

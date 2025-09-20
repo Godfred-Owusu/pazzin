@@ -1,11 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsEmail,
-  IsMongoId,
-  IsNotEmpty,
-  IsPhoneNumber,
-  IsString,
-} from 'class-validator';
+import { IsEmail, IsNotEmpty, IsPhoneNumber, IsString } from 'class-validator';
 
 export class CreateParticipantDto {
   @ApiProperty({ example: 'Godfred Owusu' })
@@ -21,11 +15,4 @@ export class CreateParticipantDto {
   @ApiProperty({ example: '+233591130145' })
   @IsPhoneNumber('FR', { message: 'Phone number is not valid' })
   phone: string;
-
-  @ApiProperty({
-    example: '68bedbc1959366b0a6b72f9f',
-    description: 'MongoDB ObjectId of the program',
-  })
-  @IsMongoId()
-  programId: string;
 }
