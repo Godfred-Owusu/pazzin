@@ -68,7 +68,9 @@ export const useDashboardData = () => {
   );
 
   useEffect(() => {
-    const eventSource = new EventSource("http://localhost:3000/dashboard/sse");
+    const eventSource = new EventSource(
+      "http://172.20.10.2:3000/dashboard/sse"
+    );
 
     eventSource.onmessage = (event) => {
       try {

@@ -140,8 +140,8 @@ export default function HomeScreen() {
   const fetchData = async () => {
     try {
       const response = await axios.get<Program[]>(
-        // `${process.env.EXPO_PUBLIC_API_URL}/programs`
-        `${process.env.EXPO_PUBLIC_API_URL_LOCAL}/programs`
+        "http://172.20.10.2:3000/programs"
+        // `${process.env.EXPO_PUBLIC_API_URL_LOCAL}/programs`
       );
       setData(response.data);
       // Set default selected ID to the first program if none is selected
