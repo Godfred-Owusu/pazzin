@@ -84,7 +84,8 @@ export const QRCodeGenerator = () => {
         name: userData.name,
         email: userData.email,
         phone: userData.phone,
-        programId: userData.programId,
+        // programId: userData.programId,
+        programId: "68cd213375fb118ae547be02",
       });
     } catch (error: any) {
       // Check for backend error message
