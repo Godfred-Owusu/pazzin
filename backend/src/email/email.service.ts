@@ -15,8 +15,6 @@ export class EmailService {
       port: 465, // or 465 for secure
       secure: true, // true if port 465
       auth: {
-        // user: 'godfredmirekuowusu@gmail.com', // SMTP username
-        // pass: 'doyp zkra jraz lftz', // SMTP password
         user: this.configService.get<string>('SMTP_USER'),
         pass: this.configService.get<string>('SMTP_PASSWORD'),
       },
@@ -31,7 +29,7 @@ export class EmailService {
   ) {
     try {
       const info = await this.transporter.sendMail({
-        from: '"Ticket System" <godfredmirekuowusu@gmail.com>', // sender
+        from: '"Ticket System" <gowusu018@gmail.com>', // sender
         to,
         subject: `Your QR Code for ${program}`,
         // html: `

@@ -159,9 +159,12 @@ export const QRCodeGenerator = () => {
       <div className="w-full max-w-4xl mx-auto">
         <div className="text-center mb-8 animate-fade-in">
           <div className="flex items-center justify-center mb-4">
-            <div className="p-3 bg-gradient-primary rounded-full shadow-glow animate-glow-pulse">
-              <Mail className="h-8 w-8 text-white" />
+            {/* <div className="p-3 bg-gradient-primary rounded-full shadow-glow animate-glow-pulse"> */}
+            {/* <Mail className="h-8 w-8 text-white" /> */}
+            <div>
+              <img src="./app_logo.png" alt="logo" className="h-20 w-20" />
             </div>
+            {/* </div> */}
           </div>
           <h1 className="text-4xl md:text-5xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-2">
             Pazzin

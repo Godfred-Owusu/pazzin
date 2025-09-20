@@ -1,6 +1,6 @@
 import React from "react";
 import { Modal, View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
+// import { MaterialIcons } from "@expo/vector-icons";
 import { ThemedText } from "@/components/themed-text";
 
 import { ThemedView } from "@/components/themed-view";
@@ -31,7 +31,7 @@ const ScanResultModal: React.FC<ScanResultModalProps> = ({
     >
       <ThemedView style={styles.modalBackground}>
         <ThemedView style={styles.modalContainer}>
-          <MaterialIcons name="done" size={60} color="green" />
+          {/* <MaterialIcons name="done" size={60} color="green" /> */}
           <ThemedText style={styles.modalTitle}>Scan Successful!</ThemedText>
           <ThemedText style={styles.modalText}>Name: {result.name}</ThemedText>
           <ThemedText style={styles.modalText}>
