@@ -62,48 +62,87 @@ export const QRCodeGenerator = () => {
   }, []);
 
   // Register user API call
-  const registerUser = async (userData: UserFormData): Promise<boolean> => {
+  // const registerUser = async (userData: UserFormData): Promise<boolean> => {
+  //   try {
+  //     const response = await axios.post(
+  //       "https://pazzin.onrender.com/participants/register",
+  //       {
+  //         name: userData.name,
+  //         email: userData.email,
+  //         phone: userData.phone,
+  //         programId: userData.programId,
+  //       }
+  //     );
+  //     return response.status === 200 || response.status === 201;
+  //   } catch (error) {
+  //     console.error("Registration failed:", error);
+  //     return false;
+  //   }
+  // };
+
+  const registerUser = async (userData: UserFormData): Promise<void> => {
     try {
-      const response = await axios.post(
-        "https://pazzin.onrender.com/participants/register",
-        {
-          name: userData.name,
-          email: userData.email,
-          phone: userData.phone,
-          programId: userData.programId,
-        }
-      );
-      return response.status === 200 || response.status === 201;
-    } catch (error) {
-      console.error("Registration failed:", error);
-      return false;
+      await axios.post("https://pazzin.onrender.com/participants/register", {
+        name: userData.name,
+        email: userData.email,
+        phone: userData.phone,
+        programId: userData.programId,
+      });
+    } catch (error: any) {
+      // Check for backend error message
+      if (axios.isAxiosError(error) && error.response) {
+        throw new Error(error.response.data.message || "Registration failed");
+      }
+      throw new Error("Registration failed. Please try again.");
     }
   };
+
+  // const handleRegister = async (userData: UserFormData) => {
+  //   setIsLoading(true);
+
+  //   try {
+  //     const success = await registerUser(userData);
+
+  //     if (success) {
+  //       toast({
+  //         title: "Registration Successful!",
+  //         description: `QR code has been sent to ${userData.email}`,
+  //         variant: "default",
+  //       });
+  //     } else {
+  //       toast({
+  //         title: "Registration Failed",
+  //         description:
+  //           "Unable to send QR code to your email. Please try again.",
+  //         variant: "destructive",
+  //       });
+  //     }
+  //   } catch (error) {
+  //     toast({
+  //       title: "Registration Failed",
+  //       description: "Unable to send QR code to your email. Please try again.",
+  //       variant: "destructive",
+  //     });
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   const handleRegister = async (userData: UserFormData) => {
     setIsLoading(true);
 
     try {
-      const success = await registerUser(userData);
+      await registerUser(userData);
 
-      if (success) {
-        toast({
-          title: "Registration Successful!",
-          description: `QR code has been sent to ${userData.email}`,
-          variant: "default",
-        });
-      } else {
-        toast({
-          title: "Registration Failed",
-          description:
-            "Unable to send QR code to your email. Please try again.",
-          variant: "destructive",
-        });
-      }
-    } catch (error) {
+      toast({
+        title: "Registration Successful!",
+        description: `QR code has been sent to ${userData.email}`,
+        variant: "default",
+      });
+    } catch (error: any) {
       toast({
         title: "Registration Failed",
-        description: "Unable to send QR code to your email. Please try again.",
+        description: error.message, // ✅ show original backend message
         variant: "destructive",
       });
     } finally {
