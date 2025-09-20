@@ -42,9 +42,7 @@ export const QRCodeGenerator = () => {
   useEffect(() => {
     const fetchPrograms = async () => {
       try {
-        const response = await axios.get(
-          "https://pazzin.onrender.com/programs"
-        );
+        const response = await axios.get("http://localhost:3000/programs");
         setPrograms(response.data);
       } catch (error) {
         console.error("Failed to fetch programs:", error);
@@ -82,7 +80,7 @@ export const QRCodeGenerator = () => {
 
   const registerUser = async (userData: UserFormData): Promise<void> => {
     try {
-      await axios.post("https://pazzin.onrender.com/participants/register", {
+      await axios.post("http://localhost:3000/participants/register", {
         name: userData.name,
         email: userData.email,
         phone: userData.phone,

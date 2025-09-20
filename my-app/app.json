@@ -6,6 +6,7 @@
     "orientation": "portrait",
     "icon": "./assets/images/app_logo.png",
     "scheme": "myapp",
+    "owner": "godfred7",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {

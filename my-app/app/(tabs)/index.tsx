@@ -110,7 +110,8 @@
 //   },
 // });
 
-import { SafeAreaView, StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { Link } from "expo-router";
 import { useCameraPermissions } from "expo-camera";
 import React, { useContext, useEffect, useState } from "react";
@@ -139,7 +140,8 @@ export default function HomeScreen() {
   const fetchData = async () => {
     try {
       const response = await axios.get<Program[]>(
-        `${process.env.EXPO_PUBLIC_API_URL}/programs`
+        // `${process.env.EXPO_PUBLIC_API_URL}/programs`
+        `${process.env.EXPO_PUBLIC_API_URL_LOCAL}/programs`
       );
       setData(response.data);
       // Set default selected ID to the first program if none is selected
