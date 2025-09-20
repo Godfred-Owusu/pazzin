@@ -14,8 +14,8 @@ export class Participant {
   @Prop({ required: true, unique: true })
   phone: string;
 
-  @Prop({ type: Types.ObjectId, ref: 'Program', required: true })
-  programId: Types.ObjectId;
+  @Prop({ type: Types.ObjectId, ref: 'Program', required: false })
+  programId?: Types.ObjectId;
 
   @Prop({ default: Date.now })
   registeredAt: Date;
