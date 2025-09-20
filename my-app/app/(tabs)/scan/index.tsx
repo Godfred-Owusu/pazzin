@@ -16,12 +16,11 @@ import {
 } from "expo-camera";
 import axios from "axios";
 import ScanResultModal from "@/components/ScanResultModal";
-import { useLocalSearchParams } from "expo-router";
+
 import { useProgram } from "../../hooks/ProgramContext";
 
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
-// import { API_URL } from "@env";
 
 export default function Home() {
   const [facing, setFacing] = useState<CameraType>("back");
