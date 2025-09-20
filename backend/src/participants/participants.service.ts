@@ -74,20 +74,20 @@ export class ParticipantsService {
 
   //   verify QRcode
   async verifyQRCode(qrCodeToken: string, programId: string) {
-    console.log('[ParticipantsService] verifyQRCode called with:', {
-      qrCodeToken,
-      programId,
-    });
+    // console.log('[ParticipantsService] verifyQRCode called with:', {
+    //   qrCodeToken,
+    //   programId,
+    // });
     try {
-      console.log('[ParticipantsService] Searching for participant...');
-      console.log({ qrCodeToken, programId });
+      // console.log('[ParticipantsService] Searching for participant...');
+      // console.log({ qrCodeToken, programId });
       const participant = await this.participantModel.findOne({
         qrCodeToken,
         programId,
       });
 
-      console.log({ participant });
-      console.log('[ParticipantsService] Participant found:', participant);
+      // console.log({ participant });
+      // console.log('[ParticipantsService] Participant found:', participant);
       if (!participant) {
         throw new NotFoundException('Participant not found');
       }
